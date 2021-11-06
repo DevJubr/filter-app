@@ -88,7 +88,7 @@ const menu = [
         <div class="tetxDiv">
          <div class="topTaitel">
            <p class="name">${item.title}</p>
-           <p class="price">${item.price}</p>
+           <p class="price">$${item.price}</p>
          </div>
           <p class="discip">${item.desc}</p>
         </div>
