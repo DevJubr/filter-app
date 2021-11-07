@@ -72,46 +72,82 @@ const menu = [
       img: "https://images.pexels.com/photos/1391505/pexels-photo-1391505.jpeg?cs=srgb&dl=pexels-monicore-1391505.jpg&fm=jpg",
       desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
     },
+    {
+      id: 11,
+      title: "Chiken Briyani",
+      category: "biryani",
+      price: 16.99,
+      img: "https://images.pexels.com/photos/6260921/pexels-photo-6260921.jpeg?cs=srgb&dl=pexels-mumtahina-tanni-6260921.jpg&fm=jpg",
+      desc: `skateboard fam Live-edge lyft af, edison bulb yuccie crucifix microdosing.  lyft af, edison bulb yuccie.`,
+    }
   ];
 
   let main = document.querySelector('main');
-  let button = document.querySelectorAll('.filter-btn');
+  let divBtn = document.querySelector('.divBtn');
 
-  window.addEventListener('DOMContentLoaded', function(){
-    displyMenuItem(menu)
-  });
 
-  function displyMenuItem(menuitem){
-    let displayContent = menuitem.map(function(item){
-        return `<div class="singelI">
-        <img id="food" src="${item.img}">
-        <div class="tetxDiv">
-         <div class="topTaitel">
-           <p class="name">${item.title}</p>
-           <p class="price">$${item.price}</p>
-         </div>
-          <p class="discip">${item.desc}</p>
-        </div>
-      </div>`
-      });
-      displayContent = displayContent.join('');
-      main.innerHTML = displayContent;
+
+window.addEventListener('DOMContentLoaded', function(){
+  displayMenuItem(menu);
+  displayBtn();
+})
+
+
+
+ 
+  function displayMenuItem(menuitem){
+    let content = menuitem.map(function(item){
+      return `<div class="singelI">
+             <img id="food" src="${item.img}">
+             <div class="tetxDiv">
+              <div class="topTaitel">
+                <p class="name">${item.title}</p>
+                <p class="price">${item.price}</p>
+              </div>
+               <p class="discip">${item.desc}</p>
+             </div>
+           </div>`
+    });
+    content = content.join('');
+    main.innerHTML = content;
   }
 
 
+
+
+
+ function displayBtn(){
+   let kaj = menu.reduce(function(val, item){
+    if(!val.includes(item.category)){
+      val.push(item.category)
+    }
+    return val;
+   }, ['all'])
+
+   let cc = kaj.map(function(coto){
+    return `
+  <button class="filter-btn" data-id="${coto}">${coto}</button>
+    `
+  }).join('');
+
+   divBtn.innerHTML = cc;
+   let button = document.querySelectorAll('.filter-btn');
+
   button.forEach(function(btn){
-   btn.addEventListener('click', function(e){
-    let dataTargrt = e.currentTarget.dataset.id;
-    let menuCetogore = menu.filter(function(menuItem){
-        if(menuItem.category === dataTargrt){
-            return menuItem;
+    btn.addEventListener('click', function(e){
+      let targrt = e.currentTarget.dataset.id;
+      let feeltar = menu.filter(function(mItem){
+        if(mItem.category === targrt){
+          return mItem;
         }
-   });
-    if(dataTargrt === 'all'){
-        displyMenuItem(menu);
-    }
-    else{
-        displyMenuItem(menuCetogore);
-    }
-    })
+      });
+      if(targrt === 'all'){
+      displayMenuItem(menu);
+      }
+      else{
+     displayMenuItem(feeltar);
+      }
+    });
   })
+ }
+
